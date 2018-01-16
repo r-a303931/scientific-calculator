@@ -39,6 +39,16 @@
     "typescript": "^2.6.2"
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "transform" : {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "testRegex": ".*\\.test\\.ts$",
+    "moduleFileExtensions" : [
+      "ts",
+      "js",
+      "json",
+      "node"
+    ]
   }
 }

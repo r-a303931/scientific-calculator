@@ -30,9 +30,14 @@ describe("significant number parser", function () {
         var num7 = new SignificantNumber_1.SignificantNumber("1.230e+4");
         expect(num7.value).toBe(12300);
     });
+    it("should parse exponential forms with zeros", function () {
+        var num8 = new SignificantNumber_1.SignificantNumber("1.00e+4");
+        expect(num8.value).toBe(10000);
+        expect(num8.significance).toBe(3);
+    });
     it("should fail to parse invalid exponential forms", function () {
         expect(function () {
-            var num8 = new SignificantNumber_1.SignificantNumber("not a number");
+            var num9 = new SignificantNumber_1.SignificantNumber("not a number");
         }).toThrow();
     });
 });
@@ -89,6 +94,12 @@ describe("significant number operations", function () {
         expect(num3.value).toBe(2.46);
         expect(num3.significance).toBe(3);
     });
+    it("should be raisable to a power", function () {
+        var num1 = new SignificantNumber_1.SignificantNumber("2.0000");
+        var num3 = new SignificantNumber_1.SignificantNumber(10);
+        expect(num1.power(3)).toEqual(new SignificantNumber_1.SignificantNumber("8.0000"));
+        expect(num1.power(num3)).toEqual(new SignificantNumber_1.SignificantNumber(1000));
+    });
 });
 describe("disabling significance", function () {
     it("should be able to disable use of significance", function () {
@@ -104,5 +115,24 @@ describe("exporting values", function () {
     it("should preserve significance in .toString()", function () {
         var num1 = new SignificantNumber_1.SignificantNumber("1.00000000000000000000");
         expect(num1.toString()).toBe("1.00000000000000000000e+0");
+    });
+});
+describe("use with other math functions", function () {
+    var num1 = new SignificantNumber_1.SignificantNumber("45.0");
+    it("should be possible to use trig", function () {
+        expect(num1.sin()).toEqual(new SignificantNumber_1.SignificantNumber(0.707));
+        expect(num1.cos()).toEqual(new SignificantNumber_1.SignificantNumber(0.707));
+        expect(num1.tan()).toEqual(new SignificantNumber_1.SignificantNumber("1.00"));
+    });
+    var num2 = new SignificantNumber_1.SignificantNumber(Math.PI, 7);
+    it("should be possible to use trig in radian mode", function () {
+        SignificantNumber_1.SignificantNumber.UseDegrees = false;
+        expect(num2.sin().value).toBeCloseTo(0, 5);
+        expect(num2.sin().significance).toBe(7);
+        expect(num2.cos().value).toBeCloseTo(-1, 5);
+        expect(num2.cos().significance).toBe(7);
+        expect(num2.tan().value).toBeCloseTo(0, 5);
+        expect(num2.tan().significance).toBe(7);
+        SignificantNumber_1.SignificantNumber.UseDegrees = true;
     });
 });
