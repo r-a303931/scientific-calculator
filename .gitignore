@@ -1,0 +1,8 @@
+node_modules/*
+.sass-cache/*
+.baseDir.ts
+.baseDir.js
+.tscache/*
+*.map
+
+.DS_Store

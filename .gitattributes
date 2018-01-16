@@ -1,0 +1,4 @@
+config.json merge=ours
+client-dist/** -diff
+dist/** -diff
+*.css -diff
