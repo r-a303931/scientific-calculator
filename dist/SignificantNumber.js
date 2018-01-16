@@ -7,7 +7,7 @@ function precisionRound(number, precision) {
 var SignificantNumber = (function () {
     function SignificantNumber(value, significance) {
         if (typeof value === "string" && !value.match(/^\d*(\.\d*)?(e[+-]?\d+)?$/i)) {
-            throw new TypeError("Exponential should be of the form: X.YZeW, where X, Y, Z, and W are numbers");
+            throw new TypeError("Exponential \"" + value + "\" should be of the form: X.YZeW, where X, Y, Z, and W are numbers");
         }
         var tstr = value.toString();
         var trailingZeros = 0;

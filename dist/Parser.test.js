@@ -17,3 +17,13 @@ describe("basic math operations", function () {
         expect(parser.parse("2 + 3 - 4")).toEqual(new SignificantNumber_1.SignificantNumber(1));
     });
 });
+describe("variable operations", function () {
+    it("should store variables correctly", function () {
+        expect(parser.parse("x = 5")).toEqual(new SignificantNumber_1.SignificantNumber(5));
+        expect(parser.variables.x).toEqual(new SignificantNumber_1.SignificantNumber(5));
+    });
+    it("should operate on variables correctly", function () {
+        parser.variables.x = new SignificantNumber_1.SignificantNumber(5);
+        expect(parser.parse("5 + x")).toEqual(new SignificantNumber_1.SignificantNumber(10));
+    });
+});

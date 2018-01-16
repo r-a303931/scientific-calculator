@@ -19,7 +19,7 @@ class SignificantNumber {
 
     constructor (value: number | string, significance?: number) {
         if (typeof value === "string" && !(value as String).match(/^\d*(\.\d*)?(e[+-]?\d+)?$/i)) {
-            throw new TypeError("Exponential should be of the form: X.YZeW, where X, Y, Z, and W are numbers");
+            throw new TypeError(`Exponential "${value}" should be of the form: X.YZeW, where X, Y, Z, and W are numbers`);
         }
         let tstr: string = value.toString();
         let trailingZeros: number = 0;

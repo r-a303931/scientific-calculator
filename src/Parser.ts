@@ -1,9 +1,19 @@
 import {SignificantNumber} from "./SignificantNumber";
 
 class Parser {
-    constructor (public variables: Object) {}
+    constructor (public variables: {
+        [key: string] : SignificantNumber
+    }) {}
 
     public parse (text: string): SignificantNumber {
+        for (var i in Object.keys(this.variables)) {
+            if (this.variables.hasOwnProperty(i)) {
+                let variable: any = this.variables[i];
+                while (text.indexOf(i) > -1) {
+                    text = text.replace(i, variable.toString());
+                }
+            }
+        }
         for (let s1: number, pc: number = 0, i: number = text.length - 1; i >= 0; i--) {
             if (text[i] === ")") {
                 if (pc === 0) {
@@ -20,6 +30,9 @@ class Parser {
         // https://regex101.com/r/TnAnYo/1
         if (text.match(/(\d*\.?\d*)\s*([\+\-\*\/\^])\s*(\1)(\s*(\2)\s*(\1))*/)) {
             return this.doBasicOperations(text);
+        }
+        if (text.match(/(\d*\.?\d*)\s*=\s*(\1)/)) {
+            return this.assignVariable(text);
         }
         return null;
     }
@@ -86,6 +99,13 @@ class Parser {
             }
         }
         return parts[0];
+    }
+
+    protected assignVariable (text: string): SignificantNumber {
+        text = text.replace(/\s/g, " ").replace(/  /g, " ");
+        let parts: string[] = text.split(" = ");
+        this.variables[parts[0]] = new SignificantNumber (parts[1]);
+        return this.variables[parts[0]];
     }
 
     protected solveEquation (text: string): SignificantNumber {

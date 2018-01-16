@@ -20,3 +20,15 @@ describe ("basic math operations", () => {
         expect(parser.parse("2 + 3 - 4")).toEqual(new SignificantNumber(1));
     });
 });
+
+describe ("variable operations", () => {
+    it ("should store variables correctly", () => {
+        expect(parser.parse("x = 5")).toEqual(new SignificantNumber(5));
+        expect(parser.variables.x).toEqual(new SignificantNumber(5));
+    });
+
+    it ("should operate on variables correctly", () => {
+        parser.variables.x = new SignificantNumber(5);
+        expect(parser.parse("5 + x")).toEqual(new SignificantNumber(10));
+    });
+});

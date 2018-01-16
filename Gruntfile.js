@@ -12,7 +12,7 @@ module.exports = function (grunt) {
 				sourceMap: false,
 				rootDir: "src"
 			},
-			server : {
+			regular : {
 				src: [
 					'src/**/*.ts'
 				],
@@ -55,7 +55,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-tslint');
 
-	grunt.registerTask('compile', ['ts']);
+	grunt.registerTask('compile', ['ts:regular']);
 	grunt.registerTask('develop', ['watch']);
 	grunt.registerTask('test', ['jshint', 'tslint', 'run:jest']);
 	grunt.registerTask('default', ['compile', 'test']);
