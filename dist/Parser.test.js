@@ -19,6 +19,9 @@ describe("basic math operations", function () {
     });
     it("should fail on an invalid expression", function () {
         expect(function () {
+            console.log(parser.parse("e"));
+        }).toThrow(SyntaxError);
+        expect(function () {
             console.log(parser.parse("2 ** 3"));
         }).toThrow(SyntaxError);
     });
@@ -88,5 +91,17 @@ describe("vector handling", function () {
         expect(function () {
             parser.parse("2,2 * 1,5");
         }).toThrow();
+    });
+});
+describe("equation handling", function () {
+    it("should solve quadratic equations", function () {
+        expect(parser.parse("x: 0 = x^2 + 2x + 1")).toBe([
+            new SignificantNumber_1.SignificantNumber(-1),
+            new SignificantNumber_1.SignificantNumber(-1)
+        ]);
+        expect(parser.parse("x: x^2 + 2x + 1")).toBe([
+            new SignificantNumber_1.SignificantNumber(-1),
+            new SignificantNumber_1.SignificantNumber(-1)
+        ]);
     });
 });

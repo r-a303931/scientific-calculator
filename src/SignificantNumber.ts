@@ -39,7 +39,7 @@ class SignificantNumber {
                 this.value = exp * 10 ** (pow + 1);
             }
         } else {
-            let part: string = this.value.toExponential().split("e")[0].replace('-', '');
+            let part: string = this.value.toExponential().split("e")[0].replace("-", "");
             if (part.indexOf(".") === -1) {
                 this.significance = 1 + trailingZeros;
             } else {

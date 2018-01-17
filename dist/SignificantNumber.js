@@ -27,7 +27,7 @@ var SignificantNumber = (function () {
             }
         }
         else {
-            var part = this.value.toExponential().split("e")[0].replace('-', '');
+            var part = this.value.toExponential().split("e")[0].replace("-", "");
             if (part.indexOf(".") === -1) {
                 this.significance = 1 + trailingZeros;
             }

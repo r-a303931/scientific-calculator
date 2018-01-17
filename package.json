@@ -9,10 +9,11 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/r-a303931/scientific-calculator.git"
   },
   "keywords": [
-    "Grunt setup"
+    "scientific",
+    "calculator"
   ],
   "author": "Andrew Rioux",
   "license": "Apache-2.0",

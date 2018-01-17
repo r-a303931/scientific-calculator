@@ -23,6 +23,9 @@ describe ("basic math operations", () => {
 
     it ("should fail on an invalid expression", () => {
         expect(() => {
+            console.log(parser.parse("e"));
+        }).toThrow(SyntaxError);
+        expect(() => {
             console.log(parser.parse("2 ** 3"));
         }).toThrow(SyntaxError);
     });
@@ -108,5 +111,19 @@ describe ("vector handling", () => {
         expect(() => {
             parser.parse("2,2 * 1,5");
         }).toThrow();
+    });
+});
+
+describe ("equation handling", () => {
+    it ("should solve quadratic equations", () => {
+        expect(parser.parse("x: 0 = x^2 + 2x + 1")).toBe([
+            new SignificantNumber(-1),
+            new SignificantNumber(-1)
+        ]);
+
+        expect(parser.parse("x: x^2 + 2x + 1")).toBe([
+            new SignificantNumber(-1),
+            new SignificantNumber(-1)
+        ]);
     });
 });
