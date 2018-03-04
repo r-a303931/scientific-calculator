@@ -4,6 +4,7 @@ node_modules/*
 .baseDir.js
 .tscache/*
 *.map
+dist/*
 coverage/*
-
+.vscode
 .DS_Store

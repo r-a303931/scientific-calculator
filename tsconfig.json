@@ -1,13 +1,19 @@
 {
     "compilerOptions": {
         "noImplicitAny": true,
+        "target" : "es5",
         "allowUnreachableCode": false,
         "allowUnusedLabels": false,
         "declaration": false,
-        "sourceMap": false,
-        "target" : "es5",
+        "sourceMap": true,
         "rootDir": "src",
         "outDir": "dist",
-        "removeComments": true
-    }
+        "removeComments": true,
+    },
+    "include": [
+        "src/**/*.ts"
+    ],
+    "exclude": [
+        "src/**/*.test.ts"
+    ]
 }

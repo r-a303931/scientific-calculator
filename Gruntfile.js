@@ -9,8 +9,10 @@ module.exports = function (grunt) {
 				allowUnreachableCode: false,
 				allowUnusedLabels: false,
 				decleration: false,
-				sourceMap: false,
-				rootDir: "src"
+				sourceMap: true,
+				rootDir: "src",
+				outDir: "dist",
+				removeComments: true
 			},
 			regular : {
 				src: [

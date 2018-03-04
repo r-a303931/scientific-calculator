@@ -1,8 +1,13 @@
-import {SignificantNumber} from "./SignificantNumber";
+import SignificantNumber from "./SignificantNumber";
+import DataType from "./DataType";
 
-class Vector {
+export default class Vector extends DataType {
     public static ValidString (text: string): boolean {
         return !!text.match(/^\d*(\.\d*)?(e[+-]?\d+)?,\d*(\.\d*)?(e[+-]?\d+)?$/i);
+    }
+
+    public static ValidPolarString (text: string): boolean {
+        return !!text.match(/^\d*(\.\d*)?(e[+-]?\d+)?<\d*(\.\d*)?(e[+-]?\d+)?$/i);
     }
 
     public static FromCartesian (x: SignificantNumber | string | number,
@@ -50,10 +55,12 @@ class Vector {
         this.y = radius.multiply(nt.sin());
     }
 
-    private constructor (public x: SignificantNumber, public y: SignificantNumber) {}
+    private constructor (public x: SignificantNumber, public y: SignificantNumber) {
+        super();
+    }
 
     public toString () {
-        return `${this.x},${this.y}`;
+        return `${this.x.toString()},${this.y.toString()}`;
     }
 
     public multiply (num: SignificantNumber | number) : Vector {
@@ -100,5 +107,3 @@ class Vector {
         };
     }
 }
-
-export {Vector};

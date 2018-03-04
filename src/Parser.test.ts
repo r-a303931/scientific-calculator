@@ -1,6 +1,6 @@
-import {Parser} from "./Parser";
-import {SignificantNumber} from "./SignificantNumber";
-import {Vector} from "./Vector";
+import Parser from "./Parser";
+import SignificantNumber from "./SignificantNumber";
+import Vector from "./Vector";
 
 const parser: Parser = new Parser({});
 
@@ -54,6 +54,10 @@ describe ("variable operations", () => {
     it ("should return the variable", () => {
         parser.variables.x = new SignificantNumber(5);
         expect(parser.parse("x")).toEqual(new SignificantNumber(5));
+    });
+
+    it ("should store complex functions", () => {
+        expect(parser.parse("x = 20 + 5")).toEqual(new SignificantNumber(30));
     });
 });
 

@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 
-import {Parser} from "./Parser";
+import Parser from "./Parser";
+import SignificantNumber from "./SignificantNumber";
+import Vector from "./Vector";
+
 import {ArgumentParser} from "argparse";
-import {SignificantNumber} from "./SignificantNumber";
-import {Vector} from "./Vector";
+import * as readline from "readline";
+import chalk from "chalk";
 
 var argparse = new ArgumentParser({
     version: "0.2.0",
@@ -39,8 +42,35 @@ if (args.variables) {
 let rvars: {[key: string]: SignificantNumber | Vector} = {};
 for (var i in vars) {
     if (vars.hasOwnProperty(i)) {
-        rvars[i] = new SignificantNumber(vars[i].value, vars[i].significance);
+        switch (vars[i].type) {
+            case "SignificantNumber" :
+                rvars[i] = new SignificantNumber(vars[i].value, vars[i].significance);
+            break;
+
+            case "Vector" :
+                rvars[i] = Vector.FromCartesian(vars[i].x, vars[i].y);
+            break;
+        }
     }
 }
 
 const cliParser = new Parser(rvars);
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+const answer = (text: string): void => {
+    if (text) {
+        text = text.trim();
+    }
+
+    let result = cliParser.parse(text);
+    console.log(result.toString());
+    cliParser.parse("Ans = " + result.toString());
+
+
+    rl.question("> ", answer);
+};
+
+rl.question("> ", answer);

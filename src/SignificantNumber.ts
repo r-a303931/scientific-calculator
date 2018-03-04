@@ -3,7 +3,9 @@ function precisionRound(number: number, precision: number): number {
     return Math.round(number * factor) / factor;
 }
 
-class SignificantNumber {
+import DataType from "./DataType";
+
+export default class SignificantNumber extends DataType {
     public value: number;
     public significance: number;
 
@@ -18,7 +20,13 @@ class SignificantNumber {
         return !!text.match(/^\-?\d*(\.\d*)?(e[+-]?\d+)?$/i);
     }
 
+    public static FromString (str: string): SignificantNumber {
+        return new SignificantNumber(str);
+    }
+
     constructor (value: number | string, significance?: number) {
+        super();
+
         if (typeof value === "string" && !(value as String).match(/^\-?\d*(\.\d*)?(e[+-]?\d+)?$/i)) {
             throw new TypeError(`Exponential "${value}" should be of the form: X.YZeW, where X, Y, Z, and W are numbers`);
         }
@@ -124,9 +132,8 @@ class SignificantNumber {
         if (exp2.length === 1 && tstr.length !== 0) {
             exp2 += ".";
         }
-        exp2 += tstr + exp.slice(exp.indexOf("e"));
-        return exp2;
+        exp2 += tstr;
+        exp2 = exp2.slice(0, this.significance + 1); // Plus one to include `.`
+        return exp2 + exp.slice(exp.indexOf("e"));
     }
 }
-
-export {SignificantNumber};

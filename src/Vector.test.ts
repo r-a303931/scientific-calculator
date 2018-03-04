@@ -1,5 +1,5 @@
-import {Vector} from "./Vector";
-import {SignificantNumber} from "./SignificantNumber";
+import Vector from "./Vector";
+import SignificantNumber from "./SignificantNumber";
 
 let test: Vector = Vector.FromCartesian("5.0", "2.0");
 

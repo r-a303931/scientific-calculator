@@ -1,11 +1,15 @@
-import {SignificantNumber} from "./SignificantNumber";
-import {Vector} from "./Vector";
+import SignificantNumber from "./SignificantNumber";
+import Vector from "./Vector";
 
-class Parser {
+export default class Parser {
     public static DetermineType (text: string): Function {
         if (Vector.ValidString(text)) {
             return (t: string): Vector => {
                 return Vector.FromCartesian(t.split(",")[0], t.split(",")[1]);
+            };
+        } else if (Vector.ValidPolarString(text)) {
+            return (t: string): Vector => {
+                return Vector.FromPolar(t.split("<")[0], t.split("<")[1]);
             };
         } else if (SignificantNumber.ValidString(text)) {
             return SignificantNumber.FromExponential;
@@ -52,10 +56,10 @@ class Parser {
         // https://regex101.com/r/TnAnYo/1
         if (!!Parser.DetermineType(text)) {
             return Parser.DetermineType(text)(text);
-        } else if (!!text.match(/(\d*\.?\d*(,\d*\.?\d*)?)\s*(?=[\+\-\*\/\^]\s)\s*(\1)(\s*(\2)\s*(\3))*/)) {
-            return this.doBasicOperations(text);
         } else if (!!original.match(/([a-zA-Z][a-zA-Z0-9]*)\s*\=.*/)) {
             return this.assignVariable(text);
+        } else if (!!text.match(/(\d*\.?\d*(,\d*\.?\d*)?)\s*(?=[\+\-\*\/\^]\s)\s*(\1)(\s*(\2)\s*(\3))*/)) {
+            return this.doBasicOperations(text);
         }
         throw new SyntaxError ("Invalid expression");
     }
@@ -168,5 +172,3 @@ class Parser {
         return this.variables[parts[0]];
     }
 }
-
-export {Parser};

@@ -18,7 +18,8 @@
   "author": "Andrew Rioux",
   "license": "Apache-2.0",
   "dependencies": {
-    "argparse": "^1.0.9"
+    "argparse": "^1.0.9",
+    "chalk": "^2.3.0"
   },
   "devDependencies": {
     "@types/argparse": "^1.0.33",

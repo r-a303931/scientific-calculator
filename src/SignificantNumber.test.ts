@@ -1,4 +1,4 @@
-import {SignificantNumber} from "./SignificantNumber";
+import SignificantNumber from "./SignificantNumber";
 
 describe ("significant number parser", () => {
     it ("should parse decimals for significance", () => {
