@@ -54,7 +54,7 @@ class Parser {
             return Parser.DetermineType(text)(text);
         } else if (!!text.match(/(\d*\.?\d*(,\d*\.?\d*)?)\s*(?=[\+\-\*\/\^]\s)\s*(\1)(\s*(\2)\s*(\3))*/)) {
             return this.doBasicOperations(text);
-        } else if (!!original.match(/([a-zA-Z][a-zA-Z0-9]*)\s*\=\s*(\d*\.?\d*(,\d*\.?\d*)?)/)) {
+        } else if (!!original.match(/([a-zA-Z][a-zA-Z0-9]*)\s*\=.*/)) {
             return this.assignVariable(text);
         }
         throw new SyntaxError ("Invalid expression");
@@ -158,6 +158,7 @@ class Parser {
     protected assignVariable (text: string): SignificantNumber | Vector {
         text = text.replace(/\s/g, " ").replace(/  /g, " ");
         let parts: string[] = text.split(" = ");
+        parts[1] = this.parse(parts[1]).toString();
         if (parts[1].indexOf(",") > -1) {
             let vc: string[] = parts[1].split(",");
             this.variables[parts[0]] = Vector.FromCartesian(vc[0], vc[1]);
@@ -165,11 +166,6 @@ class Parser {
             this.variables[parts[0]] = new SignificantNumber (parts[1]);
         }
         return this.variables[parts[0]];
-    }
-
-    protected solveEquation (text: string): SignificantNumber {
-
-        return null;
     }
 }
 

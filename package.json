@@ -41,11 +41,11 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "transform" : {
+    "transform": {
       "^.+\\.ts$": "ts-jest"
     },
     "testRegex": ".*\\.test\\.ts$",
-    "moduleFileExtensions" : [
+    "moduleFileExtensions": [
       "ts",
       "js",
       "json",

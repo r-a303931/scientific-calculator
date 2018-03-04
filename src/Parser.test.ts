@@ -113,17 +113,3 @@ describe ("vector handling", () => {
         }).toThrow();
     });
 });
-
-describe ("equation handling", () => {
-    it ("should solve quadratic equations", () => {
-        expect(parser.parse("x: 0 = x^2 + 2x + 1")).toBe([
-            new SignificantNumber(-1),
-            new SignificantNumber(-1)
-        ]);
-
-        expect(parser.parse("x: x^2 + 2x + 1")).toBe([
-            new SignificantNumber(-1),
-            new SignificantNumber(-1)
-        ]);
-    });
-});

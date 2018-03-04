@@ -22,6 +22,8 @@ var args = argparse.parseArgs();
 
 let vars: {
     [key: string]: {
+        type: string,
+
         value?: number,
         significance?: number,
 
